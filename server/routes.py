@@ -11,20 +11,23 @@ def index():
     author = request.args.get('author')
     read = bool(request.args.get('read'))
 
-    if name:
-        cursor.execute(
-            "SELECT * FROM books WHERE name LIKE %s", (f"%{name}%",)
-        )
-        books = [Book(*row) for row in cursor]
+  if name:
+    cursor.execute(
+        "SELECT * FROM books WHERE name LIKE %s", (f"%{name}%",)
+    )
+    books = [Book(*row) for row in cursor]
 
-    elif author:
-        cursor.execute(
-            "SELECT * FROM books WHERE author LIKE %s", (f"%{author}%",)
-        )
-        books = [Book(*row) for row in cursor]
+elif author:
+    cursor.execute(
+        "SELECT * FROM books WHERE author LIKE %s", (f"%{author}%",)
+    )
+    books = [Book(*row) for row in cursor]
 
     else:
         cursor.execute("SELECT name, author, read FROM books")
         books = [Book(*row) for row in cursor]
         
     return render_template('books.html', books=books)
+  
+  
+
